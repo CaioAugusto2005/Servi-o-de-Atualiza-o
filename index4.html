@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Estilo do menu lateral */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            transition: width 0.3s;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Estilo para o conteúdo */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Responsividade para a tabela */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding-top: 10px;
+            }
+
+            .sidebar a {
+                text-align: center;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .content {
+                margin-left: 60px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+        }
+
+ /* Barra de navegação superior para dispositivos móveis */
+ .topnav {
+    display: none; /* Esconde a barra superior em telas maiores */
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    padding: 14px 16px;
+    text-align: left;
+}
+
+.topnav .menu-btn {
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 60px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    display: none; /* Esconde o botão de fechar em telas maiores */
+}
+
+/* Ajustes para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .topnav {
+        display: block; /* Mostra a barra superior em telas menores */
+    }
+
+    .sidebar {
+        transform: translateX(-250px); /* Esconde a sidebar inicialmente */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Exibe a sidebar quando aberta */
+    }
+
+    .sidebar .closebtn {
+        display: block; /* Mostra o botão de fechar em telas menores */
+    }
+
+    .content {
+        margin-left: 0;
+        margin-top: 50px; /* Compensa a altura da barra superior */
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="topnav">
+        <span class="menu-btn" id="openSidebar">☰ Menu</span>
+    </div>
+    
+    <div class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" id="closeSidebar">×</a>
+        <a href="index.html">Início</a>
+        <a href="index2.html">Cadastro</a>
+        <a href="index4.html">Banco de Dados</a>
+        <a href="index3.html">Exibir Dados</a>
+    </div>
+
+    <div class="content">
+        <h1>Banco de Dados</h1>
+        <table id="dadosTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fornecedor</th>
+                    <th>Número da Proposta</th>
+                    <th>Valor</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Data da Ordem Gerada</th>
+                    <th>Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Os dados serão inseridos aqui via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Função para gerar o ID automaticamente
+        function gerarId(index) {
+            return 'ID-' + (index + 1).toString().padStart(4, '0');
+        }
+
+        // Recupera os dados do localStorage
+        const propostas = JSON.parse(localStorage.getItem('propostas')) || [];
+
+        // Referência para o corpo da tabela
+        const tbody = document.getElementById('dadosTable').querySelector('tbody');
+
+        // Popula a tabela com os dados
+        propostas.forEach((proposta, index) => {
+            const tr = document.createElement('tr');
+
+            // Gera o ID
+            const tdId = document.createElement('td');
+            tdId.textContent = gerarId(index);
+            tr.appendChild(tdId);
+
+            // Adiciona os outros dados
+            for (const key in proposta) {
+                const td = document.createElement('td');
+                td.textContent = proposta[key];
+                tr.appendChild(td);
+            }
+
+            tbody.appendChild(tr);
+        });
+    </script>
+
+
+<script>
+    document.getElementById('openSidebar').addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.add('open');
+    });
+
+    document.getElementById('closeSidebar').addEventListener('click', function() {
+        document.querySelector('.sidebar').classList.remove('open');
+    });
+</script>
+
+
+</body>
+</html>

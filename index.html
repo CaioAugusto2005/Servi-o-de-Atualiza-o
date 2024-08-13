@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Lateral</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Estilo do menu lateral */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            transition: width 0.3s;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Estilo para o conteúdo */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* Menu lateral responsivo */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding-top: 10px;
+            }
+
+            .sidebar a {
+                text-align: center;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .content {
+                margin-left: 60px;
+            }
+        }
+
+   /* Barra de navegação superior para dispositivos móveis */
+.topnav {
+    display: none; /* Esconde a barra superior em telas maiores */
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    padding: 14px 16px;
+    text-align: left;
+}
+
+.topnav .menu-btn {
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 60px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    display: none; /* Esconde o botão de fechar em telas maiores */
+}
+
+/* Ajustes para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .topnav {
+        display: block; /* Mostra a barra superior em telas menores */
+    }
+
+    .sidebar {
+        transform: translateX(-250px); /* Esconde a sidebar inicialmente */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Exibe a sidebar quando aberta */
+    }
+
+    .sidebar .closebtn {
+        display: block; /* Mostra o botão de fechar em telas menores */
+    }
+
+    .content {
+        margin-left: 0;
+        margin-top: 50px; /* Compensa a altura da barra superior */
+    }
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <div class="topnav">
+        <span class="menu-btn" id="openSidebar">☰ Menu</span>
+    </div>
+    
+    <div class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" id="closeSidebar">×</a>
+        <a href="index.html">Início</a>
+        <a href="index2.html">Cadastro</a>
+        <a href="index4.html">Banco de Dados</a>
+        <a href="index3.html">Exibir Dados</a>
+    </div>
+    
+
+    <div class="content">
+        <h1>Bem-vindo ao Sistema de Gerenciamento</h1>
+        <p>Use o menu lateral para navegar entre as páginas.</p>
+    </div>
+
+    <script>
+        document.getElementById('openSidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('open');
+        });
+    
+        document.getElementById('closeSidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('open');
+        });
+    </script>
+    
+    
+
+</body>
+</html>
